@@ -15,7 +15,7 @@ export function TopContributors() {
       </CardHeader>
       <CardContent className="grid gap-6 md:grid-cols-3">
         {topContributors.map((contributor, index) => (
-          <div key={index} className="flex flex-col items-center text-center">
+          <div key={index} className="flex flex-col items-center text-center bg-green-50 rounded-3xl p-5">
             <Avatar className="h-20 w-20 mb-2">
               <AvatarImage src="/placeholder.svg" alt={contributor.username} />
               <AvatarFallback>{contributor.username[0]}</AvatarFallback>
