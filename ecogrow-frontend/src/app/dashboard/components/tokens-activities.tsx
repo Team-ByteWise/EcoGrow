@@ -5,6 +5,7 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
 import { Button } from '@/components/ui/button'
 import { Play, Share2, Clock } from 'lucide-react'
+import Link from 'next/link'
 
 export function TokensActivities() {
   const [activeTab, setActiveTab] = useState('earn')
@@ -22,9 +23,9 @@ export function TokensActivities() {
           </TabsList>
           <TabsContent value="earn" className="space-y-4">
             <div className="grid gap-4 md:grid-cols-2">
-              <Card>
-                <CardContent className="pt-6">
-                  <div className="flex items-center gap-4">
+              <Card className='col-span-2'>
+                <CardContent className="pt-6 ">
+                  <div className="flex items-center justify-center gap-4">
                     <Play className="h-8 w-8 text-green-500" />
                     <div>
                       <h4 className="font-medium">Watch Ads</h4>
@@ -33,23 +34,11 @@ export function TokensActivities() {
                       </p>
                     </div>
                   </div>
-                  <Button className="mt-4 w-full">Watch Now</Button>
+                  <Link href="/ad"><Button className="mt-4 w-full">Watch Now</Button></Link>
+                  
                 </CardContent>
               </Card>
-              <Card>
-                <CardContent className="pt-6">
-                  <div className="flex items-center gap-4">
-                    <Share2 className="h-8 w-8 text-green-500" />
-                    <div>
-                      <h4 className="font-medium">Invite Friends</h4>
-                      <p className="text-sm text-muted-foreground">
-                        Earn 50 tokens per referral
-                      </p>
-                    </div>
-                  </div>
-                  <Button className="mt-4 w-full">Share Link</Button>
-                </CardContent>
-              </Card>
+              
             </div>
           </TabsContent>
           <TabsContent value="activity">

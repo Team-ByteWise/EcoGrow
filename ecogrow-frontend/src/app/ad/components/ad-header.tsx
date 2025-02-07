@@ -14,7 +14,7 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Badge } from "@/components/ui/badge";
 import Link from "next/link";
 
-export function DashboardHeader() {
+export function AdHeader() {
   const greeting = (() => {
     const hour = new Date().getHours();
     if (hour < 12) return "Good Morning";
@@ -50,10 +50,9 @@ export function DashboardHeader() {
             <div className="hidden md:flex items-center gap-2 bg-green-50 px-4 py-2 rounded-full">
               <span className="text-green-700">🌱</span>
               <span className="font-medium text-lg">1,234 Tokens</span>
-              <Link href="/ad"><Button variant="ghost" size="sm" className="h-7 text-green-700">
+              {/* <Button variant="ghost" size="sm" className="h-7 text-green-700">
                 Earn More
-              </Button></Link>
-              
+              </Button> */}
             </div>
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
