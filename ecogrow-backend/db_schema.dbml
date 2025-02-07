@@ -15,12 +15,17 @@ Enum ad_category {
     PROMOTIONAL
 }
 
+Enum order_status {
+    PENDING
+    COMPLETED
+    CANCELLED
+}
 
 Table users {
   id integer [primary key, increment]
   username text
-  email text
-  password text
+  email text [unique]
+  password text [not null]
   credits integer
 }
 
@@ -47,7 +52,12 @@ Table trees {
     project_id integer [ref: > projects.id]
     name text
     price double
-    stock integer
+    stock integer [note: 'check(stock >= 0)']
+}
+
+Table categories {
+  id integer [primary key, increment]
+  name text
 }
 
 Table tree_details {
@@ -57,7 +67,7 @@ Table tree_details {
     family text
     particularities text
     planter_likes text
-    category text
+    category integer [ref: > categories.id]
     foliage_type text
     height text
     image_url text
@@ -73,7 +83,8 @@ Table orders {
     tree_id integer [ref: > trees.id]
     quantity integer
     total_price double
-    order_date date
+    status order_status
+    date date
     status text
 }
 
