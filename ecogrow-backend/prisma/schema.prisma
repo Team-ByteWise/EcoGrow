@@ -1,0 +1,112 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum AdTypes {
+  VIDEO
+  IMAGE
+}
+
+enum AdCategory {
+  EDUCATIONAL
+  PROMOTIONAL
+}
+
+enum OrderStatus {
+  PENDING
+  COMPLETED
+  CANCELLED
+}
+
+model User {
+  id       Int    @id @default(autoincrement())
+  username String
+  email    String @unique
+  password String
+
+  orders  Order[]
+  credits Credit?
+}
+
+model Credit {
+  id              Int   @id @default(autoincrement())
+  user            User  @relation(fields: [userId], references: [id])
+  userId          Int   @unique
+  creditsEarned   Float
+  creditsConsumed Float
+}
+
+model Project {
+  id           Int    @id @default(autoincrement())
+  apiProjectId Int
+  name         String
+  description  String
+  latitude     Float
+  longitude    Float
+  minPrice     Float
+
+  trees Tree[]
+}
+
+model Tree {
+  id        Int     @id @default(autoincrement())
+  apiTreeId Int
+  project   Project @relation(fields: [projectId], references: [id])
+  projectId Int
+  name      String
+  price     Float
+  stock     Int     @default(0) @map("stock >= 0")
+
+  details TreeDetails?
+  orders  Order[]
+}
+
+model Category {
+  id    Int           @id @default(autoincrement())
+  name  String
+  trees TreeDetails[]
+}
+
+model TreeDetails {
+  id              Int      @id @default(autoincrement())
+  tree            Tree     @relation(fields: [treeId], references: [id])
+  treeId          Int      @unique
+  commonNames     String?
+  family          String?
+  particularities String?
+  planterLikes    String?
+  category        Category @relation(fields: [categoryId], references: [id])
+  categoryId      Int
+  foliageType     String?
+  height          String?
+  imageUrl        String?
+  lifeSpan        Int?
+  lifetimeCo2     Float?
+  co2Offset       Float?
+  co2OffsetPeriod String?
+}
+
+model Order {
+  id         Int         @id @default(autoincrement())
+  user       User        @relation(fields: [userId], references: [id])
+  userId     Int
+  tree       Tree        @relation(fields: [treeId], references: [id])
+  treeId     Int
+  quantity   Int
+  totalPrice Float
+  status     OrderStatus
+  date       DateTime    @default(now())
+}
+
+model Ad {
+  id         Int        @id @default(autoincrement())
+  type       AdTypes
+  category   AdCategory
+  mediaUrl   String
+  timesShown Int
+}
