@@ -3,19 +3,26 @@
     /* Build Options */
     "target": "ESNext",
     "module": "NodeNext",
-    "lib": ["ESNext"],
+    "lib": [
+      "ESNext"
+    ],
     "skipLibCheck": true,
     "removeComments": true,
-
     /* Paths */
     "rootDir": "./src",
     "outDir": "./dist",
-
     /* Linting */
     "strict": true,
     "noFallthroughCasesInSwitch": true,
     "noImplicitAny": true,
   },
-  "include": ["src/**/*"],
-  "exclude": ["node_modules"]
+  "include": [
+    "src/**/*"
+  ],
+  "exclude": [
+    "node_modules"
+  ],
+  "files": [
+    "src/types/express.d.ts"
+  ]
 }

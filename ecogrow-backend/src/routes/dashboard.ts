@@ -28,10 +28,11 @@ router.get('/', auth, async (req: Request, res: Response) => {
       projectName: order.tree.project.name,
       quantity: order.quantity,
       date: order.date,
-      co2Offset: (order.tree.details?.co2Offset || 0) * order.quantity
+      co2Offset: (order.tree.details?.co2Offset || 0) * order.quantity,
+      imageUrl: order.tree.details?.imageUrl
     }));
 
-    const userRank = leaderboardService.getUserRank(userId);
+    const userRank = await leaderboardService.getUserRank(userId);
 
     res.json({
       treesPlanted: totalTreesPlanted,
