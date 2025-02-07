@@ -38,9 +38,7 @@ class AuthService {
     }
 
     const result = await this.prisma.$transaction(async (tx) => {
-
       const hashedPassword = await bcrypt.hash(password, 10);
-
 
       const user = await tx.user.create({
         data: {
@@ -57,7 +55,6 @@ class AuthService {
           creditsConsumed: 0
         }
       });
-
 
       const token = jwt.sign(
         { userId: user.id, username: user.username, email: user.email },
@@ -112,7 +109,6 @@ class AuthService {
 
   async verifyToken(userId: number, username?: string, userEmail?: string) {
     try {
-
       const user = await this.prisma.user.findUnique({
         where: { id: userId },
       });
@@ -120,7 +116,6 @@ class AuthService {
       if (!user) {
         throw new AppError("User no longer exists", 401);
       }
-
 
       if (username && userEmail) {
         if (user.username !== username || user.email !== userEmail) {
