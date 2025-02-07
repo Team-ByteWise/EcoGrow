@@ -57,7 +57,7 @@ export function LeaderboardTable() {
           </TableHeader>
           <TableBody>
             {filteredData.map((user) => (
-              <TableRow key={user.id}>
+              <TableRow key={user.id} className='hover:bg-green-50'>
                 <TableCell className="font-medium">
                   {user.rank <= 3 ? (
                     <Medal className={`inline-block mr-2 ${
