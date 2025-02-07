@@ -1,0 +1,86 @@
+// Docs: https://dbml.dbdiagram.io/docs
+
+Project EcoGrow {
+  database_type: 'PostgreSQL'
+  Note: 'EcoGrow'
+}
+
+Enum ad_types {
+  VIDEO
+  IMAGE
+}
+
+Enum ad_category {
+    EDUCATIONAL
+    PROMOTIONAL
+}
+
+
+Table users {
+  id integer [primary key, increment]
+  username text
+  email text
+  password text
+  credits integer
+}
+
+Table credits {
+  id integer [primary key, increment]
+  user_id integer [ref: - users.id]
+  credits_earned double
+  credits_consumed double
+}
+
+Table projects {
+    id integer [primary key, increment]
+    api_project_id integer
+    name text
+    description text
+    latitude double
+    longitude double
+    min_price double
+}
+
+Table trees {
+    id integer [primary key, increment]
+    api_tree_id integer
+    project_id integer [ref: > projects.id]
+    name text
+    price double
+    stock integer
+}
+
+Table tree_details {
+    id integer [primary key, increment]
+    tree_id integer [ref: - trees.id]
+    common_names text
+    family text
+    particularities text
+    planter_likes text
+    category text
+    foliage_type text
+    height text
+    image_url text
+    life_span integer
+    lifetime_co2 double
+    co2_offset double
+    co2_offset_period text
+}
+
+Table orders {
+    id integer [primary key, increment]
+    user_id integer [ref: > users.id]
+    tree_id integer [ref: > trees.id]
+    quantity integer
+    total_price double
+    order_date date
+    status text
+}
+
+Table ads {
+    id integer [primary key, increment]
+    type ad_types
+    category ad_category
+    media_url text
+    times_shown integer
+}
