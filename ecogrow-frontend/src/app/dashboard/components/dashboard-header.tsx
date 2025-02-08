@@ -55,7 +55,6 @@ export function DashboardHeader() {
               <Link href="/ad"><Button variant="ghost" size="sm" className="h-7 text-green-700">
                 Earn More
               </Button></Link>
-              
             </div>
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
@@ -90,7 +89,7 @@ export function DashboardHeader() {
                   className="relative h-8 w-8 rounded-full"
                 >
                   <Avatar className="h-8 w-8">
-                    <AvatarImage src="/placeholder.svg" alt="User" />
+                    <AvatarImage src={`https://ui-avatars.com/api/?name=${username}`} />
                     <AvatarFallback>A</AvatarFallback>
                   </Avatar>
                 </Button>
