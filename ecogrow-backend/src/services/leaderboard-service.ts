@@ -50,12 +50,12 @@ class LeaderboardService {
           }
         },
       });
-
+      const totalTrees = userTrees.reduce((sum, tree) => sum + tree.quantity, 0);
       const totalCo2Offset = userTrees.reduce((sum, tree) => sum + (tree.tree.details?.co2Offset || 0) * tree.quantity, 0);
-      data.push({ userId: user.id, username: user.username, co2Offset: totalCo2Offset });
+      data.push({ userId: user.id, username: user.username, totalTrees, totalCo2Offset });
     }
 
-    const sortedUsers = data.sort((a, b) => b.co2Offset - a.co2Offset);
+    const sortedUsers = data.sort((a, b) => b.totalCo2Offset - a.totalCo2Offset);
     return sortedUsers.slice(0, 10);
   }
 }
