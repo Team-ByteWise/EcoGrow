@@ -49,6 +49,12 @@ export function DashboardHeader() {
             >
               Leaderboard
             </Link>
+            <Link
+              href="/qna"
+              className="hidden md:block text-green-600 hover:text-green-700 font-medium text-lg"
+            >
+              Q&A
+            </Link>
             <div className="hidden md:flex items-center gap-2 bg-green-50 px-4 py-2 rounded-full">
               <span className="text-green-700">🌱</span>
               <span className="font-medium text-lg">{tokens} Tokens</span>
@@ -109,6 +115,9 @@ export function DashboardHeader() {
             <h2 className="text-lg font-semibold">{greeting}, Aniket! 👋</h2>
             <Link href="/leaderboard" className="text-green-600 font-medium">
               Leaderboard
+            </Link>
+            <Link href="/qna" className="text-green-600 font-medium">
+              Q&A
             </Link>
             <div className="flex items-center gap-2 bg-green-50 px-4 py-2 rounded-full">
               <span className="text-green-700">🌱</span>

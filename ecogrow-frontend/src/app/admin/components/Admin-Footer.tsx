@@ -2,8 +2,8 @@ import Link from "next/link";
 
 export function AdminFooter() {
   return (
-    <footer className="bg-green-800 text-white py-8">
-      <div className="container mx-auto px-4">
+    <footer className="bg-green-800 text-white py-8 flex flex-col">
+      <div className="container mx-auto px-4 col-span-1">
         <div className="flex flex-col md:flex-row justify-between items-center">
           <nav className="mb-4 md:mb-0">
             <ul className="flex space-x-4">
