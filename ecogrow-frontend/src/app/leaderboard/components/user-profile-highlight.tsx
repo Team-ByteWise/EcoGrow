@@ -1,13 +1,25 @@
 import { Card, CardContent } from "@/components/ui/card"
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 
-export function UserProfileHighlight() {
+interface UserProfileHighlightProps {
+  rank: number
+  username: string
+  treesPlanted: number
+  co2Offset: number
+}
+
+export function UserProfileHighlight({
+  rank,
+  username,
+  treesPlanted,
+  co2Offset,
+}: UserProfileHighlightProps) {
   // This would be fetched from an API in a real application
   const currentUser = {
-    rank: 42,
-    username: "GreenThumb",
-    treesPlanted: 127,
-    co2Offset: 2540,
+    rank,
+    username,
+    treesPlanted,
+    co2Offset,
   }
 
   return (
