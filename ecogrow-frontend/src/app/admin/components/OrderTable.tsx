@@ -72,8 +72,8 @@ const orders = [
 
 export default function OrderTable() {
   return (
-    <div className="bg-background my-10">
-      <div className="overflow-hidden rounded-lg border border-border bg-background">
+    <div className="bg-background">
+      <div className="overflow-hidden rounded-lg border border-border bg-background ">
         <Table>
           <TableHeader>
             <TableRow className="bg-muted/50">
