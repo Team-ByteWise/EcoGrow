@@ -5,7 +5,6 @@ import Hero from "@/components/Hero";
 import HowItWorks from "@/components/Howitworks";
 import ImpactStats from "@/components/ImpactStats";
 import KeyFeatures from "@/components/KeyFeatures";
-import Image from "next/image";
 
 export default function Home() {
   return (

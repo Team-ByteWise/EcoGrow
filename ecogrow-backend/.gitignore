@@ -137,3 +137,6 @@ dist
 
 # VSCode
 .vscode/**
+
+# Prisma Migrations
+prisma/migrations/**

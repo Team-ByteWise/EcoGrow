@@ -12,7 +12,7 @@ const Navbar = () => {
     { name: "Home", path: "/" },
     { name: "Leaderboard", path: "/leaderboard" },
     { name: "Patners", path: "/services" },
-    { name: "How works", path: "#work" },
+    { name: "How it works", path: "#work" },
   ];
 
   return (
