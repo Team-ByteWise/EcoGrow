@@ -2,26 +2,32 @@
 
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { MapPin } from "lucide-react";
-import { useEffect,useState } from "react";
-import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
+import { useEffect, useState } from "react";
 
-export function ImpactMap() {
+interface ImpactMapProps {
+  latitude: number;
+  longitude: number;
+  points: number;
+}
+
+export function ImpactMap({ latitude, longitude, points }: ImpactMapProps) {
   const [markers, setMarkers] = useState<{ left: string; top: string }[]>([]);
   function randomPos(max: number, min: number) {
     return Math.floor(Math.random() * (max - min + 1)) + min;
   }
 
   useEffect(() => {
-    // Generate positions only on the client
-    setMarkers([
-      { left: `${randomPos(90, 10)}%`, top: `${randomPos(90, 10)}%` },
-      { left: `${randomPos(90, 10)}%`, top: `${randomPos(90, 10)}%` },
-      { left: `${randomPos(90, 10)}%`, top: `${randomPos(90, 10)}%` },
-    ]);
-  }, []);
-  
+    if (points === 0) return;
+    setMarkers(
+      Array.from({ length: points }, () => ({
+        left: `${randomPos(90, 10)}%`,
+        top: `${randomPos(90, 10)}%`,
+      }))
+    );
+  }, [points]);
 
-  
+
+
   return (
     <Card>
       <CardHeader>
@@ -33,7 +39,7 @@ export function ImpactMap() {
             {/* <p className="text-muted-foreground">Interactive map coming soon...</p> */}
 
             <iframe
-              src="https://www.google.com/maps/embed?pb=!1m14!1m12!1m3!1d229.6115853154371!2d88.37187317106272!3d22.958130464055607!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!5e0!3m2!1sen!2sin!4v1738968132137!5m2!1sen!2sin"
+              src={generateGoogleMapsEmbedUrl(latitude, longitude)}
               style={{ pointerEvents: "none" }}
               className="w-full h-full"
             ></iframe>
@@ -56,3 +62,11 @@ function MapMarker({ left, top }: { left: string; top: string }) {
     </div>
   );
 }
+
+function generateGoogleMapsEmbedUrl(latitude: number, longitude: number, zoom: number = 15): string {
+  return `https://maps.google.com/maps?q=${latitude},${longitude}&z=${zoom}&output=embed`;
+}
+
+// Example usage:
+const embedUrl = generateGoogleMapsEmbedUrl(6.08824, -67.723885, 18);
+console.log(embedUrl);

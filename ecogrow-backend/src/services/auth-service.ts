@@ -48,7 +48,7 @@ class AuthService {
         }
       });
 
-      await tx.credit.create({
+      const credits = await tx.credit.create({
         data: {
           userId: user.id,
           creditsEarned: 0,
@@ -67,7 +67,11 @@ class AuthService {
         user: {
           id: user.id,
           email: user.email,
-          username: user.username
+          username: user.username,
+          credits: {
+            creditsConsumed: credits.creditsConsumed,
+            creditsEarned: credits.creditsEarned
+          }
         },
       };
     });
@@ -80,6 +84,18 @@ class AuthService {
 
     const user = await this.prisma.user.findUnique({
       where: { email },
+      select: {
+        id: true,
+        email: true,
+        username: true,
+        password: true,
+        credits: {
+          select: {
+            creditsConsumed: true,
+            creditsEarned: true
+          }
+        }
+      }
     });
 
     if (!user) {
@@ -102,7 +118,11 @@ class AuthService {
       user: {
         id: user.id,
         email: user.email,
-        username: user.username
+        username: user.username,
+        credits: {
+          creditsConsumed: user.credits?.creditsConsumed ?? 0,
+          creditsEarned: user.credits?.creditsEarned ?? 0
+        }
       },
     };
   }
@@ -111,6 +131,14 @@ class AuthService {
     try {
       const user = await this.prisma.user.findUnique({
         where: { id: userId },
+        select: {
+          id: true,
+          username: true,
+          email: true,
+          credits: {
+            select: { creditsConsumed: true, creditsEarned: true }
+          }
+        },
       });
 
       if (!user) {
@@ -135,6 +163,10 @@ class AuthService {
           id: user.id,
           email: user.email,
           username: user.username,
+          credits: {
+            creditsConsumed: user.credits?.creditsConsumed ?? 0,
+            creditsEarned: user.credits?.creditsEarned ?? 0
+          }
         },
       };
     } catch (error) {

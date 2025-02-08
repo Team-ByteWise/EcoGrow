@@ -29,6 +29,10 @@ export const authResponseSchema = z.object({
     id: z.number(),
     email: z.string(),
     username: z.string(),
+    credits: z.object({
+      creditsConsumed: z.number(),
+      creditsEarned: z.number(),
+    })
   }),
 });
 export type AuthResponse = z.infer<typeof authResponseSchema>;

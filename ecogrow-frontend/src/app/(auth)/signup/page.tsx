@@ -3,10 +3,13 @@ import React, { FormEvent, FormEventHandler } from "react";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
+import { BASE_URL } from "@/lib/constants";
+import axios from "axios";
 const page = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
+  const [username, setUsername] = useState("");
   const [error, setError] = useState("");
   const router = useRouter();
 
@@ -14,13 +17,27 @@ const page = () => {
     e.preventDefault();
     setError("");
 
-    if (!email || !password) {
-      setError("Both fields are required");
+    if (!email || !password || !username) {
+      setError("All fields are required");
       return;
     }
     if (password !== confirmPassword) {
       setError("Please confirm the password correctly");
       return;
+    }
+
+    try {
+      axios.post(`${BASE_URL}/auth/signup`, {
+        username,
+        email,
+        password,
+      }).then((res) => {
+        const { token, user } = res.data;
+        localStorage.setItem("token", token);
+        router.push("/dashboard");
+      })
+    } catch (error) {
+      setError("Invalid email or password");
     }
   };
 
@@ -48,6 +65,16 @@ const page = () => {
               onSubmit={handleSubmit}
               className="space-y-4 flex flex-col gap-4"
             >
+              <div>
+                <label className="block text-gray-700">Username</label>
+                <input
+                  type="text"
+                  className="w-full p-2 border rounded-full focus:outline-none focus:ring-2 focus:ring-green-500 text-black "
+                  value={username}
+                  onChange={(e) => setUsername(e.target.value)}
+                  required
+                />
+              </div>
               <div>
                 <label className="block text-gray-700">Email</label>
                 <input

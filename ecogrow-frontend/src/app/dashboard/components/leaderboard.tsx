@@ -1,16 +1,22 @@
+"use client";
+
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
 import { Button } from '@/components/ui/button'
+import { useRouter } from 'next/navigation'
 
-const leaderboardData = [
-  { name: 'Sarah K.', trees: 342, rank: 1 },
-  { name: 'Mike R.', trees: 315, rank: 2 },
-  { name: 'Alex M.', trees: 287, rank: 3 },
-  { name: 'Chris P.', trees: 264, rank: 4 },
-  { name: 'Emma S.', trees: 251, rank: 5 },
-]
+interface LeaderboardProps {
+  leaderboardData: {
+    username: string
+    trees: number
+    totalCo2Offset: number
+  }[]
+}
 
-export function Leaderboard() {
+export function Leaderboard({ leaderboardData }: LeaderboardProps) {
+  const router = useRouter();
+  
+  leaderboardData.sort((a, b) => b.totalCo2Offset - a.totalCo2Offset)
   return (
     <Card className="sticky top-6">
       <CardHeader>
@@ -18,21 +24,21 @@ export function Leaderboard() {
       </CardHeader>
       <CardContent>
         <div className="space-y-4">
-          {leaderboardData.map((user) => (
+          {leaderboardData.map((user, index) => (
             <div
-              key={user.name}
+              key={user.username}
               className="flex items-center justify-between gap-4"
             >
               <div className="flex items-center gap-4">
                 <div className="flex h-8 w-8 items-center justify-center rounded-full bg-muted font-medium">
-                  {user.rank}
+                  {index + 1}
                 </div>
                 <Avatar>
-                  <AvatarImage src="/placeholder.svg" />
-                  <AvatarFallback>{user.name[0]}</AvatarFallback>
+                  <AvatarImage src={`https://ui-avatars.com/api/?name=${user.username}`} />
+                  <AvatarFallback>{user.username[0]}</AvatarFallback>
                 </Avatar>
                 <div>
-                  <p className="font-medium">{user.name}</p>
+                  <p className="font-medium">{user.username}</p>
                   <p className="text-sm text-muted-foreground">
                     {user.trees} trees
                   </p>
@@ -41,7 +47,7 @@ export function Leaderboard() {
             </div>
           ))}
         </div>
-        <Button className="mt-6 w-full">View Full Leaderboard</Button>
+        <Button className="mt-6 w-full" onClick={() => router.push('/leaderboard')}>View Full Leaderboard</Button>
       </CardContent>
     </Card>
   )

@@ -1,4 +1,4 @@
-import express, { Request, Response } from 'express';
+import express, { NextFunction, Request, Response } from 'express';
 import { auth } from '../middlewares/auth';
 import dashboardService from '../services/dashboard-service';
 import leaderboardService from '../services/leaderboard-service';
@@ -6,13 +6,13 @@ import AppError from '../utils/AppError';
 
 const router = express.Router();
 
-router.get('/', auth, async (req: Request, res: Response) => {
+router.get('/', auth, async (req: Request, res: Response, next: NextFunction) => {
   try {
     const userId = req.userId;
     if (!userId) {
       throw new AppError("Unauthorized access", 403);
     }
-    
+
     const userOrders = await dashboardService.getUserTrees(userId);
 
     const totalTreesPlanted = userOrders.reduce((sum, order) => sum + order.quantity, 0);
@@ -26,6 +26,8 @@ router.get('/', auth, async (req: Request, res: Response) => {
     const lastTreesPlanted = userOrders.map(order => ({
       treeName: order.tree.name,
       projectName: order.tree.project.name,
+      latitude: order.tree.project.latitude,
+      longitude: order.tree.project.longitude,
       quantity: order.quantity,
       date: order.date,
       co2Offset: (order.tree.details?.co2Offset || 0) * order.quantity,
@@ -42,8 +44,7 @@ router.get('/', auth, async (req: Request, res: Response) => {
       leaderboard
     });
   } catch (error) {
-    console.error('Dashboard data fetch error:', error);
-    res.status(500).json({ error: 'Failed to fetch dashboard data' });
+    next(error);
   }
 });
 

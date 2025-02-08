@@ -3,6 +3,9 @@ import React, { FormEvent, FormEventHandler } from "react";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
+import axios from "axios";
+import { BASE_URL } from "@/lib/constants";
+
 const page = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -17,6 +20,19 @@ const page = () => {
       setError("Both fields are required");
       return;
     }
+
+    try {
+      axios.post(`${BASE_URL}/auth/login`, {
+        email,
+        password,
+      }).then((res) => {
+        const { token, user } = res.data;
+        localStorage.setItem("token", token);
+        router.push("/dashboard");
+      })
+    } catch (error) {
+      setError("Invalid email or password");
+    }
   };
 
   return (
@@ -26,7 +42,7 @@ const page = () => {
     >
       <div
         className="md:w-11/12 md:h-5/6 md:flex bg-white/30 rounded-3xl bg-cover shadow-lg"
-        // style={{ backgroundImage: "url(assets/wave-haikei.svg)" }}
+      // style={{ backgroundImage: "url(assets/wave-haikei.svg)" }}
       >
         <div
           className="hidden md:flex md:w-1/2 md:bg-cover md:bg-center md:bg-no-repeat"
