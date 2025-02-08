@@ -37,7 +37,7 @@ export function AdHeader() {
           </button>
 
           <h2 className="text-lg font-semibold hidden md:block">
-            {greeting}, Aniket! 👋
+            {greeting}, user1! 👋
           </h2>
 
           <div className="flex items-center gap-6">
