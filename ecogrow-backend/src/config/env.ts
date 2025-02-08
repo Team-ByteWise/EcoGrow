@@ -13,6 +13,8 @@ const envSchema = z.object({
   JWT_EXPIRES_IN: z.string().default("7d"),
 
   CORS_ORIGIN: z.string().url("Frontend URL must be a valid URL"),
+  MAILTRAP_TOKEN: z.string(),
+  MAILTRAP_SENDER_EMAIL: z.string(),
 });
 
 const envParse = envSchema.safeParse(process.env);
@@ -37,6 +39,10 @@ export const env = {
   cors: {
     origin: envParse.data.CORS_ORIGIN,
   },
+  mailtrap: {
+    token: envParse.data.MAILTRAP_TOKEN,
+    senderEmail: envParse.data.MAILTRAP_SENDER_EMAIL,
+  }
 } as const;
 
 export const jwtConfig = env.jwt;

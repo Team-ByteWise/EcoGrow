@@ -57,7 +57,7 @@ Table trees {
 
 Table categories {
   id integer [primary key, increment]
-  name text
+  name text [unique]
 }
 
 Table tree_details {
