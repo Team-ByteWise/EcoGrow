@@ -8,7 +8,6 @@ import { useEffect, useState } from 'react'
 import { useRouter } from 'next/navigation'
 import axios from 'axios';
 import { BASE_URL } from '@/lib/constants';
-import { useUser } from './context/UserContext';
 
 type TreeApiData = {
   treeName: string,
@@ -30,27 +29,10 @@ type LeaderboardApiData = {
 
 export default function DashboardPage() {
   const router = useRouter();
-  const { setUsername, setTokens } = useUser();
   const [impactOverviewData, setImpactOverviewData] = useState({ treesPlanted: 0, co2Offset: 0, globalRank: 0 });
   const [trees, setTrees] = useState([]);
   const [leaderboardData, setLeaderboardData] = useState([]);
   const [mapCenter, setMapCenter] = useState({ latitude: 0, longitude: 0, points: 0 });
-
-  useEffect(() => {
-    const token = localStorage.getItem("token")
-    if (token) {
-      axios.get(`${BASE_URL}/auth/verify`, {
-        headers: {
-          Authorization: `Bearer ${token}`
-        }
-      }).then((res) => {
-        const {user} = res.data;
-        const {username, credits} = user;
-        setUsername(username);
-        setTokens(credits.creditsEarned - credits.creditsConsumed);
-      })
-    }
-  }, []);
 
   useEffect(() => {
     const token = localStorage.getItem("token")

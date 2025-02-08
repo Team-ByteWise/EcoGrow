@@ -3,7 +3,6 @@
 import { useState, useRef, useEffect } from "react";
 import CampaignList from "./components/CampaignList";
 import TreeList from "./components/TreeList";
-import { RedeemHeader } from "./components/RedeemHeader";
 
 // Mock data (you'll replace this with actual API calls)
 const mockCampaigns = [
@@ -112,43 +111,40 @@ export default function TokenRedeemPage() {
   }, [selectedCampaign]);
 
   return (
-    <div className="min-h-screen bg-green-50">
-      <RedeemHeader userTokens={userTokens} />
-      <main className="container mx-auto p-4 md:p-8">
-        <h1 className="text-3xl font-bold mb-6 text-green-800">
-          Redeem Your Tokens
-        </h1>
-        <div className="grid md:grid-cols-2 gap-8">
-          <section ref={campaignListRef}>
-            <h2 className="text-2xl font-semibold mb-4 text-green-700">
-              Available Campaigns
-            </h2>
-            <CampaignList
-              campaigns={mockCampaigns}
-              onCampaignSelect={handleCampaignSelect}
-              selectedCampaign={selectedCampaign}
+    <main className="container mx-auto p-4 md:p-8">
+      <h1 className="text-3xl font-bold mb-6 text-green-800">
+        Redeem Your Tokens
+      </h1>
+      <div className="grid md:grid-cols-2 gap-8">
+        <section ref={campaignListRef}>
+          <h2 className="text-2xl font-semibold mb-4 text-green-700">
+            Available Campaigns
+          </h2>
+          <CampaignList
+            campaigns={mockCampaigns}
+            onCampaignSelect={handleCampaignSelect}
+            selectedCampaign={selectedCampaign}
+          />
+        </section>
+        <section ref={treeListRef}>
+          <h2 className="text-2xl font-semibold mb-4 text-green-700">
+            Available Trees
+          </h2>
+          {selectedCampaign ? (
+            <TreeList
+              trees={mockTrees.filter(
+                (tree) => tree.campaignId === selectedCampaign
+              )}
+              onTreeOrder={handleTreeOrder}
+              userTokens={userTokens}
             />
-          </section>
-          <section ref={treeListRef}>
-            <h2 className="text-2xl font-semibold mb-4 text-green-700">
-              Available Trees
-            </h2>
-            {selectedCampaign ? (
-              <TreeList
-                trees={mockTrees.filter(
-                  (tree) => tree.campaignId === selectedCampaign
-                )}
-                onTreeOrder={handleTreeOrder}
-                userTokens={userTokens}
-              />
-            ) : (
-              <p className="text-gray-600">
-                Please select a campaign to view available trees.
-              </p>
-            )}
-          </section>
-        </div>
-      </main>
-    </div>
+          ) : (
+            <p className="text-gray-600">
+              Please select a campaign to view available trees.
+            </p>
+          )}
+        </section>
+      </div>
+    </main>
   );
 }

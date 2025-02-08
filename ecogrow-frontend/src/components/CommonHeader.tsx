@@ -1,7 +1,7 @@
 "use client";
 
-import { Bell, ChevronDown, Menu } from "lucide-react";
-import { useState } from "react";
+import { Bell, Menu } from "lucide-react";
+import { useEffect, useState } from "react";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -13,16 +13,34 @@ import { Button } from "@/components/ui/button";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Badge } from "@/components/ui/badge";
 import Link from "next/link";
-import { useUser } from "../context/UserContext";
+import { useUser } from "@/context/UserContext";
+import axios from "axios";
+import { BASE_URL } from "@/lib/constants";
 
-export function QnaHeader() {
-  const { username, tokens } = useUser();
+export default function CommonUserHeader() {
+  const { username, tokens, setUsername, setTokens } = useUser();
   const greeting = (() => {
     const hour = new Date().getHours();
     if (hour < 12) return "Good Morning";
     if (hour < 18) return "Good Afternoon";
     return "Good Evening";
   })();
+
+  useEffect(() => {
+    const token = localStorage.getItem("token")
+    if (token) {
+      axios.get(`${BASE_URL}/auth/verify`, {
+        headers: {
+          Authorization: `Bearer ${token}`
+        }
+      }).then((res) => {
+        const {user} = res.data;
+        const {username, credits} = user;
+        setUsername(username);
+        setTokens(credits.creditsEarned - credits.creditsConsumed);
+      })
+    }
+  }, []);
 
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
@@ -43,11 +61,23 @@ export function QnaHeader() {
           </h2>
 
           <div className="flex items-center gap-6">
-            <Link
+          <Link
               href="/dashboard"
               className="hidden md:block text-green-600 hover:text-green-700 font-medium text-lg"
             >
               Dashboard
+            </Link>
+            <Link
+              href="/leaderboard"
+              className="hidden md:block text-green-600 hover:text-green-700 font-medium text-lg"
+            >
+              Leaderboard
+            </Link>
+            <Link
+              href="/qna"
+              className="hidden md:block text-green-600 hover:text-green-700 font-medium text-lg"
+            >
+              Q&A
             </Link>
             <div className="hidden md:flex items-center gap-2 bg-green-50 px-4 py-2 rounded-full">
               <span className="text-green-700">🌱</span>
@@ -109,6 +139,9 @@ export function QnaHeader() {
             <h2 className="text-lg font-semibold">{greeting}, Aniket! 👋</h2>
             <Link href="/leaderboard" className="text-green-600 font-medium">
               Leaderboard
+            </Link>
+            <Link href="/qna" className="text-green-600 font-medium">
+              Q&A
             </Link>
             <div className="flex items-center gap-2 bg-green-50 px-4 py-2 rounded-full">
               <span className="text-green-700">🌱</span>

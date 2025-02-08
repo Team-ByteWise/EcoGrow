@@ -44,7 +44,7 @@ function FaqDemo() {
       <Accordion type="single" collapsible className="w-full border rounded-lg shadow-md">
         {faqData.map((faq, index) => (
           <AccordionItem key={index} value={`item-${index}`}>
-            <AccordionTrigger className="text-start pl-5 text-lg font-medium">
+            <AccordionTrigger className="text-start px-5 text-lg font-medium">
               {faq.question}
             </AccordionTrigger>
             <AccordionContent className="w-full text-justify  text-gray-600 px-5  py-2">
@@ -56,8 +56,6 @@ function FaqDemo() {
     </div>
   );
 }
-
-
 
 
 export { FaqDemo };

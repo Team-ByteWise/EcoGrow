@@ -32,12 +32,12 @@ export function ImpactOverview({ treesPlanted, co2Offset, globalRank, trees }: I
     {
       icon: Leaf,
       label: 'CO₂ Offset',
-      value: co2Offset.toString(),
+      value: co2Offset.toString() + " Tons",
       color: 'text-emerald-500',
     },
     {
       icon: Trophy,
-      label: 'Global Rank',
+      label: 'Rank',
       value: globalRank.toString(),
       color: 'text-yellow-500',
     },
@@ -72,7 +72,7 @@ export function ImpactOverview({ treesPlanted, co2Offset, globalRank, trees }: I
           <CardTitle>Your Virtual Forest</CardTitle>
         </CardHeader>
         <CardContent className="p-0">
-          <div className="relative h-[300px] bg-green-900/10">
+          <div className="justify-center relative h-[400px] bg-green-900/10">
             <VirtualForest trees={trees} />
           </div>
         </CardContent>
@@ -96,7 +96,7 @@ function VirtualForest({ trees }: VirtualForestProps) {
           animate={{ scale: 1 }}
           transition={{ delay: i * 0.1 }}
         >
-          <TreeCard treeName={tree.treeName} projectName={tree.projectName} co2Offset={tree.co2Offset} quantity={tree.quantity} imageUrl={tree.imageUrl} />
+          <TreeCard  treeName={tree.treeName} projectName={tree.projectName} co2Offset={tree.co2Offset} quantity={tree.quantity} imageUrl={tree.imageUrl} />
         </motion.div>
       ))}
     </div>
@@ -113,9 +113,9 @@ interface TreeCardProps {
 
 function TreeCard({ treeName, projectName, co2Offset, quantity, imageUrl }: TreeCardProps) {
   return (
-    <Card className='h-max'>
+    <Card className='h-[350px]'>
       <CardHeader>
-        <Image src={imageUrl} alt={treeName} width={650} height={650} className='w-full pb-3' />
+        <Image src={imageUrl} alt={treeName} width={650} height={150} className='h-[150px] pb-3' />
         <CardTitle>{treeName}</CardTitle>
       </CardHeader>
       <CardContent>
@@ -126,7 +126,7 @@ function TreeCard({ treeName, projectName, co2Offset, quantity, imageUrl }: Tree
           </div>
           <div className="flex items-center gap-2">
             <Trophy className="h-4 w-4 text-green-600" />
-            <span>CO2 Offset: {co2Offset}</span>
+            <span>CO2 Offset: {co2Offset} Tons</span>
           </div>
           <div className="flex items-center gap-2">
             <TreePine className="h-4 w-4 text-green-600" />

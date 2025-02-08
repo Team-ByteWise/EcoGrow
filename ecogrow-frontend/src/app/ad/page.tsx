@@ -1,7 +1,6 @@
 "use client";
 import React, { useEffect, useState } from "react";
 import { Search, X } from "lucide-react";
-import { AdHeader } from "./components/ad-header";
 import Image from "next/image";
 
 const youtubeRegex =
@@ -27,10 +26,9 @@ function Page() {
 
 
   return (
-    <div className="w-screen h-screen bg-green-50 flex flex-col">
-      <AdHeader />
+    <div className="h-screen bg-green-50 flex flex-col">
       {/* Search Bar */}
-      <div className="w-screen flex justify-center items-center p-8">
+      <div className="flex justify-center items-center p-8">
         <div className="relative w-full max-w-md">
           <input
             type="url"
