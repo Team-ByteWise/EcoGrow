@@ -8,7 +8,7 @@ function Page() {
 
   return (
     <div className="w-screen h-screen bg-green-50 flex flex-col">
-      <AdHeader/>
+      <AdHeader />
       {/* Search Bar */}
       <div className="w-screen flex justify-center items-center p-8">
         <div className="relative w-full max-w-md">
@@ -37,7 +37,7 @@ function Page() {
           AD
         </div>
         <div className="basis-4/6 flex justify-center items-center bg-white h-full">
-          Video
+          {vidLink !== "" && <iframe src={vidLink} className="w-full h-full" allowFullScreen={false}></iframe>}
         </div>
         <div className="basis-1/6 flex justify-center items-center bg-gray-200 h-full">
           AD
