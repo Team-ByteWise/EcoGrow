@@ -6,17 +6,18 @@ import { Input } from "@/components/ui/input"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 import { Medal } from 'lucide-react'
 
-// Mock data - in a real app, this would come from an API
-const leaderboardData = [
-  { id: 1, rank: 1, username: "EcoWarrior", treesPlanted: 1000, co2Offset: 20000, tokensEarned: 5000 },
-  { id: 2, rank: 2, username: "GreenGuru", treesPlanted: 950, co2Offset: 19000, tokensEarned: 4750 },
-  { id: 3, rank: 3, username: "TreeHugger", treesPlanted: 900, co2Offset: 18000, tokensEarned: 4500 },
-  { id: 4, rank: 4, username: "NatureLover", treesPlanted: 850, co2Offset: 17000, tokensEarned: 4250 },
-  { id: 5, rank: 5, username: "EarthGuardian", treesPlanted: 800, co2Offset: 16000, tokensEarned: 4000 },
-  // Add more mock data as needed
-]
+interface LeaderboardEntry {
+  userId: number
+  username: string
+  totalTrees: number
+  totalCo2Offset: number
+}
 
-export function LeaderboardTable() {
+interface LeaderboardTableProps {
+  leaderboardData: LeaderboardEntry[]
+}
+
+export function LeaderboardTable({ leaderboardData }: LeaderboardTableProps) {
   const [searchTerm, setSearchTerm] = useState('')
   const [timeFilter, setTimeFilter] = useState('all-time')
 
@@ -52,26 +53,24 @@ export function LeaderboardTable() {
               <TableHead>User</TableHead>
               <TableHead>Trees Planted</TableHead>
               <TableHead>CO₂ Offset</TableHead>
-              <TableHead>Tokens Earned</TableHead>
             </TableRow>
           </TableHeader>
           <TableBody>
-            {filteredData.map((user) => (
-              <TableRow key={user.id} className='hover:bg-green-50'>
+            {filteredData.map((user, index) => (
+              <TableRow key={user.userId} className='hover:bg-green-50'>
                 <TableCell className="font-medium">
-                  {user.rank <= 3 ? (
+                  {index + 1 <= 3 ? (
                     <Medal className={`inline-block mr-2 ${
-                      user.rank === 1 ? 'text-yellow-500' :
-                      user.rank === 2 ? 'text-gray-400' :
+                      index + 1 === 1 ? 'text-yellow-500' :
+                      index + 1 === 2 ? 'text-gray-400' :
                       'text-amber-600'
                     }`} />
                   ) : null}
-                  {user.rank}
+                  {index + 1}
                 </TableCell>
                 <TableCell>{user.username}</TableCell>
-                <TableCell>{user.treesPlanted}</TableCell>
-                <TableCell>{user.co2Offset}kg</TableCell>
-                <TableCell>{user.tokensEarned}</TableCell>
+                <TableCell>{user.totalTrees}</TableCell>
+                <TableCell>{user.totalCo2Offset} tons</TableCell>
               </TableRow>
             ))}
           </TableBody>
