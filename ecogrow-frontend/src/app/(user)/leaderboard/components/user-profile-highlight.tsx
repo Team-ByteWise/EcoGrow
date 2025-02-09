@@ -27,7 +27,7 @@ export function UserProfileHighlight({
       <CardContent className="flex justify-between items-center p-6">
         <div className="flex items-center space-x-4">
           <Avatar className="md:h-16 md:w-16 h-12 w-12">
-            <AvatarImage src="/placeholder.svg" alt={currentUser.username} />
+            <AvatarImage src={`https://ui-avatars.com/api/?name=${currentUser.username}`} alt={currentUser.username} />
             <AvatarFallback className="text-lg md:3xl">{currentUser.username[0]}</AvatarFallback>
           </Avatar>
           <div>

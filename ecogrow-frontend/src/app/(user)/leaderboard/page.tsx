@@ -41,7 +41,7 @@ export default function LeaderboardPage() {
           )}
           <LeaderboardTable leaderboardData={leaderboard} />
           <TopContributors contributors={topContributors} />
-          <GlobalImpactTracker treesPlanted={0} co2Offset={0} />
+          <GlobalImpactTracker treesPlanted={13} co2Offset={18000} />
         </div>
       </main>
       <LeaderboardFooter />

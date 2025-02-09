@@ -21,7 +21,7 @@ export function TopContributors({ contributors }: TopContributorsProps) {
         {contributors.map((contributor, index) => (
           <div key={index} className="flex flex-col items-center text-center bg-green-50 rounded-3xl p-5">
             <Avatar className="h-20 w-20 mb-2">
-              <AvatarImage src="/placeholder.svg" alt={contributor.username} />
+              <AvatarImage src={`https://ui-avatars.com/api/?name=${contributor.username}`} alt={contributor.username} />
               <AvatarFallback>{contributor.username[0]}</AvatarFallback>
             </Avatar>
             <h3 className="font-semibold">{contributor.username}</h3>
