@@ -16,6 +16,7 @@ import Link from "next/link";
 import { useUser } from "@/context/UserContext";
 import axios from "axios";
 import { BASE_URL } from "@/lib/constants";
+import { useRouter } from "next/navigation";
 
 export default function CommonUserHeader() {
   const { username, tokens, setUsername, setTokens, authToken, setAuthToken } = useUser();
@@ -44,6 +45,17 @@ export default function CommonUserHeader() {
   }, []);
 
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+
+  //logout functionality
+  const router = useRouter();
+  const logout = () => {
+    localStorage.removeItem("token");
+    setUsername("");
+    setTokens(0);
+    setAuthToken("");
+    router.push("/login");
+    
+  };
 
   return (
     <header className="border-b bg-white w-full">
@@ -129,7 +141,7 @@ export default function CommonUserHeader() {
                 <DropdownMenuItem>Profile</DropdownMenuItem>
                 <DropdownMenuItem>Settings</DropdownMenuItem>
                 <DropdownMenuSeparator />
-                <DropdownMenuItem>Log out</DropdownMenuItem>
+                <DropdownMenuItem onClick={logout}>Log out</DropdownMenuItem>
               </DropdownMenuContent>
             </DropdownMenu>
           </div>
