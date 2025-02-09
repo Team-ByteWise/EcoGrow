@@ -1,8 +1,12 @@
 "use client";
 
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
+import axios from "axios";
+import { useEffect, useState } from "react";
+import { useUser } from "@/context/UserContext";
+import { BASE_URL } from "@/lib/constants";
 
-const faqData = [
+const faqDataSample = [
   {
     question: "What is EcoGrow?",
     answer:
@@ -35,7 +39,28 @@ const faqData = [
   },
 ]
 
+interface QnaResponse {
+  question: string;
+  answer: string;
+}
+
 function FaqDemo() {
+  const { authToken } = useUser();
+  const [faqData, setFaqData] = useState<QnaResponse[]>(faqDataSample);
+
+  useEffect(() => {
+    if (!authToken) {
+      return;
+    }
+    axios.get<QnaResponse[]>(`${BASE_URL}/qna/me`, {
+      headers: {
+        Authorization: `Bearer ${authToken}`
+      }
+    }).then((response) => {
+      setFaqData(response.data);
+    })
+  }, [authToken]);
+
   return (
     <div className="w-full max-w-lg mx-auto p-4">
       <h2 className="text-2xl font-bold mb-4 text-center">Frequently Asked Questions</h2>

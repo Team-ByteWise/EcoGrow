@@ -42,6 +42,8 @@ export function FormDemo() {
         </pre>
       ),
     });
+    
+    form.reset();
   }
 
   return (

@@ -35,10 +35,12 @@ router.get(
 );
 
 router.get(
-  "/",
+  "/me",
+  auth,
   async (req, res, next) => {
     try {
-      const result = await qnaService.getUserAnsweredQna(parseInt(req.query.userid as string));
+      console.log(req.userId);
+      const result = await qnaService.getUserAnsweredQna(req.userId!);
       res.json(result);
     } catch (error) {
       next(error);

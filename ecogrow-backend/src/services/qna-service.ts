@@ -101,6 +101,10 @@ class QnaService {
 
   async getUserAnsweredQna(userId: number) {
     const qnas = await this.prisma.userQuestion.findMany({
+      select: {
+        question: true,
+        answer: true,
+      },
       where: {
         userId: userId,
         isAnswered: true,
