@@ -48,7 +48,6 @@ router.get(
 
 router.post(
   "/reply",
-  auth,
   async (req, res, next) => {
     try {
       const result = await qnaService.replyToQna({
