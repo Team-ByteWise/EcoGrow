@@ -7,6 +7,7 @@ import authRoute from './routes/auth'
 import dashboardRoute from './routes/dashboard'
 import leaderboardRoute from './routes/leaderboard'
 import messageRoute from './routes/message'
+import qnaRoute from './routes/qna'
 
 const app = express();
 const port = env.server.port || 3000;
@@ -31,6 +32,7 @@ app.get("/", (req: Request, res: Response) => {
 app.use("/auth", authRoute);
 app.use("/dashboard", dashboardRoute);
 app.use("/leaderboard", leaderboardRoute);
+app.use("/qna", qnaRoute);
 app.use("/message", messageRoute);
 
 app.use((_req, _res, next) => {

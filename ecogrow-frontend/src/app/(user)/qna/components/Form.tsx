@@ -12,19 +12,29 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { toast } from "sonner";
+import { useUser } from "@/context/UserContext";
+import axios from "axios";
+import { BASE_URL } from "@/lib/constants";
 
 interface FormValues {
-  feedback:string;
+  feedback: string;
 }
 
 export function FormDemo() {
+  const { username, authToken } = useUser();
   const form = useForm<FormValues>({
     defaultValues: {
-      feedback:"",
+      feedback: "",
     },
   });
 
   function onSubmit(data: FormValues) {
+    axios.post(`${BASE_URL}/qna/post`, {
+      question: data.feedback,
+    }, {headers: {
+      Authorization: `Bearer ${authToken}`
+    }});
+    
     toast.success("Form submitted!", {
       description: (
         <pre className="mt-2 w-[340px] rounded-md bg-slate-950 p-4">

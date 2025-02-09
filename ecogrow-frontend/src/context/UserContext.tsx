@@ -7,6 +7,8 @@ type UserContextType = {
   tokens: number;
   setUsername: (username: string) => void;
   setTokens: (tokens: number) => void;
+  authToken: string;
+  setAuthToken: (authToken: string) => void;
 };
 
 const UserContext = createContext<UserContextType | undefined>(undefined);
@@ -14,9 +16,10 @@ const UserContext = createContext<UserContextType | undefined>(undefined);
 export function UserProvider({ children }: { children: ReactNode }) {
   const [username, setUsername] = useState("");
   const [tokens, setTokens] = useState(0);
+  const [authToken, setAuthToken] = useState("")
 
   return (
-    <UserContext.Provider value={{ username, tokens, setUsername, setTokens }}>
+    <UserContext.Provider value={{ username, tokens, setUsername, setTokens, authToken, setAuthToken }}>
       {children}
     </UserContext.Provider>
   );

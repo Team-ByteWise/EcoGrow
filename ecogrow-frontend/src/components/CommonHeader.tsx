@@ -18,7 +18,7 @@ import axios from "axios";
 import { BASE_URL } from "@/lib/constants";
 
 export default function CommonUserHeader() {
-  const { username, tokens, setUsername, setTokens } = useUser();
+  const { username, tokens, setUsername, setTokens, authToken, setAuthToken } = useUser();
   const greeting = (() => {
     const hour = new Date().getHours();
     if (hour < 12) return "Good Morning";
@@ -38,6 +38,7 @@ export default function CommonUserHeader() {
         const {username, credits} = user;
         setUsername(username);
         setTokens(credits.creditsEarned - credits.creditsConsumed);
+        setAuthToken(token);
       })
     }
   }, []);
