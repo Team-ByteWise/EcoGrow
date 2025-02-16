@@ -1,9 +1,6 @@
-# FrostHacks 1.0 - Team ByteWise
+# EcoGrow - Turn Ads Into Forests
 
-## Project Info
-
-- Project Name: EcoGrow
-- Project Description: EcoGrow empowers individuals to contribute to environmental sustainability from the comfort of their homes. By watching ads, users earn tokens that fund the planting of real trees. Support NGOs, climb the leaderboard, and win fresh produce as monthly rewards!
+EcoGrow empowers individuals to contribute to environmental sustainability from the comfort of their homes. By watching ads, users earn tokens that fund the planting of real trees. Support NGOs, climb the leaderboard, and win fresh produce as monthly rewards!
 
 ## Tech Stack
 
@@ -45,7 +42,7 @@
 
 ### Setup
 
-#### Backend
+#### Backend Setup
 
 ```shell
 cd ecogrow-backend
@@ -54,7 +51,7 @@ cp .env.example .env  # Configure your environment variables
 pnpm run dev  # Start the backend server
 ```
 
-#### Frontend
+#### Frontend Setup
 
 ```shell
 cd ecogrow-frontend
@@ -70,8 +67,8 @@ pnpm run dev  # Start the Next.js development server
 npx prisma migrate dev
 ```
 
-- You can seed the database with example data by running https://github.com/Team-ByteWise/frosthacks/blob/main/ecogrow-backend/prisma/seed.ts
+- You can seed the database with example data by running <https://github.com/Team-ByteWise/frosthacks/blob/main/ecogrow-backend/prisma/seed.ts>
 
 #### Conductor OSS Setup
 
-Conductor OSS can be run using https://github.com/Team-ByteWise/frosthacks/blob/main/ecogrow-backend/workflows/ecogrow_conductor.ts
+Conductor OSS can be run using <https://github.com/Team-ByteWise/frosthacks/blob/main/ecogrow-backend/workflows/ecogrow_conductor.ts>
