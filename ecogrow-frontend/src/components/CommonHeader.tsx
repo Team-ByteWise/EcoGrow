@@ -42,7 +42,7 @@ export default function CommonUserHeader() {
         setAuthToken(token);
       })
     }
-  }, []);
+  }, [setAuthToken, setTokens, setUsername]);
 
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 

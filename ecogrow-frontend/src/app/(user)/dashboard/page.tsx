@@ -68,7 +68,7 @@ export default function DashboardPage() {
         })));
       });
     }
-  }, []);
+  }, [router]);
 
   useEffect(() => {
     console.log(trees);
