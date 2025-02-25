@@ -67,8 +67,8 @@ pnpm run dev  # Start the Next.js development server
 npx prisma migrate dev
 ```
 
-- You can seed the database with example data by running <https://github.com/Team-ByteWise/frosthacks/blob/main/ecogrow-backend/prisma/seed.ts>
+- You can seed the database with example data by running <https://github.com/Team-ByteWise/EcoGrow/blob/main/ecogrow-backend/prisma/seed.ts>
 
 #### Conductor OSS Setup
 
-Conductor OSS can be run using <https://github.com/Team-ByteWise/frosthacks/blob/main/ecogrow-backend/workflows/ecogrow_conductor.ts>
+Conductor OSS can be run using <https://github.com/Team-ByteWise/EcoGrow/blob/main/ecogrow-backend/workflows/ecogrow_conductor.ts>
