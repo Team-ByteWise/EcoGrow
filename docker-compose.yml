@@ -1,0 +1,25 @@
+services:
+  backend:
+    build:
+      context: ./ecogrow-backend
+      dockerfile: Dockerfile
+    container_name: ecogrow-backend
+    env_file:
+      - ./ecogrow-backend/.env
+    ports:
+      - "5000:5000"
+
+
+  frontend:
+    build:
+      context: ./ecogrow-frontend
+      dockerfile: Dockerfile
+    container_name: ecogrow-frontend
+    env_file:
+      - ./ecogrow-frontend/.env
+    ports:
+      - "3000:3000"
+    depends_on:
+      - backend
+
+
