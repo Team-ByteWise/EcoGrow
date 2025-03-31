@@ -17,8 +17,8 @@ const Navbar = () => {
 
   return (
     <>
-      <div className="w-11/12 relative md:w-screen md:flex items-center justify-between bg-white/10 text-black backdrop-blur shadow-md">
-        <div className="w-3/12 md:flex justify-center hidden py-3  ">
+      <div className="w-11/12 fixed top-0 left-0 md:w-screen md:flex items-center justify-between bg-black/40 text-black backdrop-blur-md shadow-md z-[1000]">
+        <div className="w-3/12 md:flex justify-center hidden py-3">
           <Link href="#" className="flex justify-center gap-x-2 items-center">
             <Image src="/logo.png" alt="" width={50} height={50} />
             <p className="text-white text-xl font-bold">EcoGrow</p>
@@ -57,16 +57,16 @@ const Navbar = () => {
           </Link>
         </div>
         {/* Hamburger Button - Only Visible on Mobile */}
-        <div className=" absolute w-full flex flex-col items-center">
+        <div className="fixed top-0 left-0 w-screen px-6 py-3 flex flex-col items-start bg-black/40 backdrop-blur-md shadow-md z-[1000]">
           <button
-            className="md:hidden p-2 rounded focus:outline-none"
+            className="md:hidden rounded focus:outline-none"
             onClick={() => setMenuOpen(!menuOpen)}
           >
             {!menuOpen ? <Menu color="white" size={28} /> : <></>}
           </button>
           {/* Mobile Menu - Only Visible When Open */}
           {menuOpen && (
-            <div className="bg-white/10 w-full flex flex-col items-center p-3">
+            <div className="bg-white/10 w-full flex flex-col items-start p-3">
               <button
                 className="md:hidden p-2 rounded focus:outline-none"
                 onClick={() => setMenuOpen(!menuOpen)}
