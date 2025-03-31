@@ -13,7 +13,7 @@ export default function Hero() {
         />
         <div className="absolute inset-0 bg-black/40"></div>
       </div>
-      <div className="relative  flex justify-center z-10 w-full ">
+      <div className="relative  flex justify-center w-full ">
         <Navbar />
       </div>
 
